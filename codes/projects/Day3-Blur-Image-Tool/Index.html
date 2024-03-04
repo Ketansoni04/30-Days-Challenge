@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoped CSS Variable and JS</title>
+</head>
+<body>
+    <h2>Update CSS Variables with <span class = "h1">JS</span></h2>
+
+    <div class="controls">
+
+    <label for="spacing">Spacing:</label>
+    <input type ="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    
+    <label for="blur">Blur:</label>
+    <input type ="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    
+    <label for="base">Base Color:</label>
+    <input type ="color" name="base" value="#ffc600" >
+    </div>
+    
+    <div class="dialog">
+        <img src="https://images.pexels.com/photos/1036657/pexels-photo-1036657.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+    </div>
+    <style>
+        :root{
+             --base: #ffc600;
+             --spacing: 10px;
+             --blur: 10px
+        }
+
+        img{
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+            size: 3vwh;
+        }
+
+        .h1{
+            color: var(--base);
+        }
+
+        body{
+            text-align: center;
+            background: #193546;
+            color: white;
+            font-family: 'helvetica neue', sans-serif;
+            font-weight: 100;
+            font-size: 50px;
+        }
+        
+        .controls {
+            margin: 50px;
+        }
+
+        h2{
+            font-size: 45px;
+        }
+
+        input{
+            width: 100px;
+        }
+        label{
+            font-size: 25px;
+            font-family:  sans-serif;
+        }
+        a {
+            color: var(--base);
+            text-decoration: none;
+        }
+
+    </style>
+
+
+
+<script>
+    const inputs = document.querySelectorAll('.controls input')
+
+
+    function handleUpdate(){
+        const suffix = this.dataset.sizing || " ";
+        document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix)
+
+    }
+
+    inputs.forEach(input => input.addEventListener('change',handleUpdate))
+    inputs.forEach(input => input.addEventListener('mousemove',handleUpdate))
+   
+
+</script>
+</body>
+</html>
